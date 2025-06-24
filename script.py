@@ -11,8 +11,8 @@ min_distances[0] = 0
 nodes_at_distance_i = [0]
 
 for i in range(0, n):
-    if max(min_distances) < math.inf:
-        break
+    # if max(min_distances) < math.inf:
+    #     break
     # Update min_distances with natural path and shortcuts
     nodes_at_distance_i_plus_1 = []
     for node in nodes_at_distance_i:
