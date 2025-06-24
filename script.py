@@ -8,10 +8,6 @@ shortcuts = [int(i) - 1 for i in input().split(" ")]
 min_distances = [math.inf] * n
 
 min_distances[0] = 0
-
-# node_by_distance = {i: [] for i in range(n)}
-# node_by_distance[0].append(0)
-
 nodes_at_distance_i = [0]
 
 for i in range(0, n):
