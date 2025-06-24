@@ -1,26 +1,38 @@
-import numpy as np
+import math
 
 n = int(input())
 
-# -1 because index starts at 0
+# # -1 because index starts at 0
 shortcuts = [int(i) - 1 for i in input().split(" ")]
 
-min_distances = [np.inf] * n
+min_distances = [math.inf] * n
 
 min_distances[0] = 0
 
+# node_by_distance = {i: [] for i in range(n)}
+# node_by_distance[0].append(0)
+
+nodes_at_distance_i = [0]
+
 for i in range(0, n):
-    if max(min_distances) < np.inf:
+    if max(min_distances) < math.inf:
         break
-
-    # Select all nodes at distance i
-    nodes_at_distance_i = [j for j in range(n) if min_distances[j] == i]
-
     # Update min_distances with natural path and shortcuts
-
+    nodes_at_distance_i_plus_1 = []
     for node in nodes_at_distance_i:
-        min_distances[node + 1] = min(min_distances[node + 1], min_distances[node] + 1)
-        min_distances[shortcuts[node]] = min(min_distances[shortcuts[node]], min_distances[node] + 1)
+        if node != n-1:
+            if i + 1 < min_distances[node + 1]:
+                min_distances[node + 1] = i + 1
+                nodes_at_distance_i_plus_1.append(node + 1)
+        if node != 0:
+            if i + 1 < min_distances[node - 1]:
+                min_distances[node - 1] = i + 1
+                nodes_at_distance_i_plus_1.append(node - 1)
+        if i + 1 < min_distances[shortcuts[node]]:
+            min_distances[shortcuts[node]] = i + 1
+            nodes_at_distance_i_plus_1.append(shortcuts[node])
+    
+    nodes_at_distance_i = nodes_at_distance_i_plus_1
     
 print(" ".join([str(i) for i in min_distances]))
 
